@@ -6,11 +6,18 @@ import './App.css';
 
 export default class App extends Component{
 
+  state = {users:[]}
+
+  saveUsers = (users) => {
+    this.setState({users})
+  }
+
   render() {
+    const {users} = this.state
     return (
       <div className="container">
-        <Search />
-        <List />
+        <Search saveUsers={this.saveUsers}/>
+        <List users={users}/>
       </div>
     );
   }
