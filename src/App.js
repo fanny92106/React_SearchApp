@@ -6,18 +6,24 @@ import './App.css';
 
 export default class App extends Component{
 
-  state = {users:[]}
+  state = {
+    users: [], // users init array
+    isFirst: true, // if first load page
+    isLoading: false, // mark if in loading process
+    err: '' // store request related error message
+  }
 
-  saveUsers = (users) => {
-    this.setState({users})
+
+  updateAppState = (stateObj) => {
+    this.setState(stateObj)
   }
 
   render() {
     const {users} = this.state
     return (
       <div className="container">
-        <Search saveUsers={this.saveUsers}/>
-        <List users={users}/>
+        <Search updateAppState={this.updateAppState}/>
+        <List {...this.state}/>
       </div>
     );
   }

@@ -4,12 +4,13 @@ import React, { Component } from 'react'
 export default class Search extends Component {
     search = () => {
         const{KeywordElement:{value:keyWord}} = this;
+        this.props.updateAppState({isFirst: false, isLoading:true})
         // send request
-        axios.get(`https://api.github.com/search/users?q=${keyWord}`).then(
+        axios.get(`https://api.github.com/search/userss?q=${keyWord}`).then(
             response => {
-                this.props.saveUsers(response.data.items)
+                this.props.updateAppState({isLoading:false, users:response.data.items})
                 },
-            error => {console.log('error', error);}
+            error => {this.props.updateAppState({isLoading:false, err: error.message})}
         )
     }
 
